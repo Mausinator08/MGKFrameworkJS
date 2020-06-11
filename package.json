@@ -1,0 +1,34 @@
+{
+  "name": "mgkframeworkjs",
+  "version": "0.0.1",
+  "description": "Game Framework",
+  "scripts": {
+    "post-install": "electron-builder install-app-deps",
+    "dist-win": "electron-builder -p never --win",
+    "pack": "electron-builder build --dir",
+    "pre-install": "npm install",
+    "build": "tsc --build --verbose",
+    "dry-build": "tsc --build --dry --verbose",
+    "clean": "tsc --build --clean",
+    "dry-clean": "tsc --build --clean --dry",
+    "rebuild": "tsc --build --clean && tsc --build --verbose",
+    "watch": "tsc --build --watch --verbose",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "trace": "tsc --traceResolution"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://mausinator08.visualstudio.com/MausinatorGamesKitJS/_git/MGKFrameworkJS"
+  },
+  "author": "John Patrick Maus",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "dependencies": {
+    "babylonjs": "^4.1.0",
+    "multi-ini": "^2.1.0"
+  },
+  "devDependencies": {
+    "electron": "^9.0.3",
+    "electron-builder": "^22.7.0",
+    "typescript": "^3.9.5"
+  }
+}

@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "inlineSourceMap": true,
+        "inlineSources": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "*",
+                "node_modules/*",
+            ]
+        },
+        "outDir": "lib",
+        "rootDir": "../",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceRoot": "./../"
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "types": [
+        "babylonjs"
+    ]
+}
