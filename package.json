@@ -29,7 +29,6 @@
   "devDependencies": {
     "electron": "^9.2.0",
     "electron-builder": "^22.8.0",
-    "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   }
 }
