@@ -4,17 +4,8 @@
   "description": "Game Framework",
   "scripts": {
     "post-install": "electron-builder install-app-deps",
-    "dist-win": "electron-builder -p never --win",
-    "pack": "electron-builder build --dir",
-    "pre-install": "nvm install 14.7.0 && nvm use 14.7.0 && npm install yarn -g && yarn install",
-    "build": "tsc --build --verbose",
-    "dry-build": "tsc --build --dry --verbose",
-    "clean": "tsc --build --clean",
-    "dry-clean": "tsc --build --clean --dry",
-    "rebuild": "tsc --build --clean && tsc --build --verbose",
-    "watch": "tsc --build --watch --verbose",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "trace": "tsc --traceResolution"
+    "pre-install": "npm install",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
