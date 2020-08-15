@@ -6,7 +6,7 @@
     "post-install": "electron-builder install-app-deps",
     "dist-win": "electron-builder -p never --win",
     "pack": "electron-builder build --dir",
-    "pre-install": "npm install",
+    "pre-install": "nvm install 14.7.0 && nvm use 14.7.0 && npm install yarn -g && yarn install",
     "build": "tsc --build --verbose",
     "dry-build": "tsc --build --dry --verbose",
     "clean": "tsc --build --clean",
@@ -27,8 +27,9 @@
     "multi-ini": "^2.1.0"
   },
   "devDependencies": {
-    "electron": "^9.0.3",
-    "electron-builder": "^22.7.0",
-    "typescript": "^3.9.5"
+    "electron": "^9.2.0",
+    "electron-builder": "^22.8.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
   }
 }

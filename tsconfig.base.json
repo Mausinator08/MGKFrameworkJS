@@ -18,15 +18,11 @@
                 "node_modules/*",
             ]
         },
-        "outDir": "lib",
         "rootDir": "../",
         "declaration": true,
         "declarationMap": true,
         "sourceRoot": "./../"
     },
-    "include": [
-        "src/**/*"
-    ],
     "types": [
         "babylonjs"
     ]

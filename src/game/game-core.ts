@@ -1,5 +1,5 @@
 import { ComponentManager } from "./component-manager.js";
-import { remote, BrowserWindow, TouchBarSlider } from "electron";
+import { BrowserWindow, TouchBarSlider, remote } from "electron";
 import { BaseGameLogic } from "./../game-logic/base-game-logic.js";
 
 var gameLoaded: boolean = false;
