@@ -12,7 +12,7 @@ export class HumanView implements IGameView {
         let renderer = GameCore.game.comMan.GetByName<Renderer>(this.rendererName);
 
         renderer.CreateScene(function(scene: BABYLON.Scene, canvas: HTMLCanvasElement): BABYLON.Scene {
-            let defaultCamera: BABYLON.FreeCamera = new BABYLON.FreeCamera("camera_default", new BABYLON.Vector3(0, 5, -10), scene);
+            let defaultCamera: BABYLON.FreeCamera = new BABYLON.FreeCamera("camera_default", new BABYLON.Vector3(-5, 10, -5), scene);
 
             defaultCamera.setTarget(BABYLON.Vector3.Zero());
             defaultCamera.attachControl(canvas, true);
