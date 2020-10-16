@@ -1,15 +1,18 @@
 export class Component {
+    //#region Fields
     protected name: string = "component";
     protected type: string = "component";
     protected isInitialized: boolean = false;
     protected reInit: boolean = true;
     protected requestShutdown: boolean = false;
-
+    //#endregion
+    
     constructor(name: string, type: string) {
         this.name = name;
         this.type = type;
     }
 
+    //#region Accessors
     public get IsInitialized(): boolean {
         return this.isInitialized;
     }
@@ -17,7 +20,6 @@ export class Component {
     public get ReInit(): boolean {
         return this.reInit;
     }
-
     public ReInitialize(): void {
         this.reInit = true;
         this.isInitialized = false;
@@ -30,8 +32,9 @@ export class Component {
     public RequestShutdown(): void {
         this.requestShutdown = true;
     }
+    //#endregion
 
-    // Component functions to be overriden.
+    //#region Control Method Overrides
     // Core functions.
     public VInit(): boolean {
         this.reInit = false;
@@ -48,8 +51,10 @@ export class Component {
         this.isInitialized = false;
         this.requestShutdown = false;
     }
+    // END OVERRIDES
+    //#endregion
 
-    // Name and Type retrieval functions
+    //#region Name and Type retrieval functions
     public VGetName(): string {
         return this.name;
     }
@@ -57,4 +62,5 @@ export class Component {
     public VGetType(): string {
         return this.type;
     }
+    //#endregion
 }

@@ -1,8 +1,13 @@
+//#region Imports
 import { GameCore } from "./../game/game-core.js";
-import { ViewManager } from "./../game-logic/game-view-manager.js";
-import { HumanView } from "./../game-views/human-view.js";
+import { ViewManager } from "../game-views/game-view-manager.js";
+import { HumanView } from "./../game-views/types/human-view.js";
+import { IGameState } from "./game-state-interface.js";
+import { StateManager } from "./game-state-manager.js";
+//#endregion
 
 export class BaseGameLogic {
+    //#region Fields
     public preInitFunc: Function;
     protected paused: boolean = false;
     protected isInitialized: boolean = false;
@@ -11,9 +16,18 @@ export class BaseGameLogic {
     public createdViews: string[] = [];
     protected reInit: boolean = true;
     protected requestShutdown: boolean = false;
+    protected stateManager: StateManager;
+    //#endregion
 
-    constructor(viewPath: string) {
+    constructor(viewPath: string, statePath: string) {
         this.viewMan = new ViewManager(viewPath);
+        this.stateManager = new StateManager(statePath);
+    }
+
+    //#region Control Method Overrides
+    // OVERRIDES
+    public CreateGameState(name: string, type: string): void {
+
     }
 
     public VInit(): boolean {
@@ -40,7 +54,7 @@ export class BaseGameLogic {
         if (this.paused === true || this.isInitialized === false) {
             // At least check the human view if this is not set on a server so that a working dialog can still appear and be used for exit prompts and warnings/errors.
             if (this.isServerLogic === true) {
-                // TODO: Something needs to check for whetehr or not we are shutting down the server here:
+                // TODO: Something needs to check for whether or not we are shutting down the server here:
                 return;
             }
 
@@ -82,4 +96,6 @@ export class BaseGameLogic {
             this.isInitialized = false;
         }
     }
+    // END OVERRIDES
+    //#endregion
 }

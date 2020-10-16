@@ -1,18 +1,25 @@
+//#region Imports
 import { Component } from "./component.js";
+//#endregion
 
 export class ComponentManager {
+    //#region fields
     private components: Map<string, Component>;
     public comDir: string;
-
+    //#endregion
+    
+    //#region Properties    
     public get count() {
         return this.components.size;
     }
+    //#endregion
 
     constructor(comPath: string) {
         this.components = new Map<string, Component>();
         this.comDir = comPath;
     }
 
+    //#region Accessors
     public GetByName<T>(name: string): T | null {
         try {
             if (!this.components.has(name)) {
@@ -42,7 +49,9 @@ export class ComponentManager {
             return null;
         }
     }
+    //#endregion
 
+    //#region CRUD Ops
     public Create(name: string, type: string): string {
         try {
             if (this.components.has(name)) {
@@ -124,7 +133,9 @@ export class ComponentManager {
 
         console.warn("ComponentManager: Remove() -> No components to clear! I'm empty!");
     }
+    //#endregion
 
+    //#region Control Methods
     public Init(): void {
         if (this.components.size > 0) {
             this.components.forEach(com => {
@@ -166,4 +177,5 @@ export class ComponentManager {
             });
         }
     }
+    //#endregion
 }

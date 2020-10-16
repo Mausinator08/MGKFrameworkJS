@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "Game Framework",
   "scripts": {
-    "post-install": "electron-builder install-app-deps",
-    "pre-install": "npm install",
+    "postinstall": "electron-builder install-app-deps",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://mausinator08.visualstudio.com/MausinatorGamesKitJS/_git/MGKFrameworkJS"
@@ -18,8 +18,8 @@
     "multi-ini": "^2.1.0"
   },
   "devDependencies": {
-    "electron": "^9.2.0",
+    "electron": "^9.1.2",
     "electron-builder": "^22.8.0",
-    "typescript": "^3.9.7"
+    "typescript": "3.9.7"
   }
 }

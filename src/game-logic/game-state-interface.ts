@@ -1,4 +1,5 @@
-export interface IGameView {
+export interface IGameState {
+    //#region Methods
     VInit(): boolean;
     VUpdate(): void;
     VShutdown(): void;
@@ -7,10 +8,15 @@ export interface IGameView {
     VIsReInit(): boolean;
     VShutdownRequested(): boolean;
     VRequestShutdown(): void;
+    VCanClear(): boolean;
+    //#endregion
 
+    //#region Fields
     name: string;
     type: string;
     autoUpdate: boolean;
     reInit: boolean;
     requestShutdown: boolean;
+    canClear: boolean;
+    //#endregion
 }

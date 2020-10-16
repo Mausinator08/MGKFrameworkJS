@@ -1,18 +1,25 @@
-import { IGameView } from "./../game-view-interface.js";
+//#region Imports
+import { IGameView } from "./game-view-interface.js";
+//#endregion
 
 export class ViewManager {
+    //#region Fields
     private views: Map<string, IGameView>;
     public viewDir: string;
+    //#endregion
 
+    //#region Properties
     public get count() {
         return this.views.size;
     }
+    //#endregion
 
     constructor(viewPath: string) {
         this.views = new Map<string, IGameView>();
         this.viewDir = viewPath;
     }
 
+    //#region Accessors
     public GetByName<T>(name: string): T | null {
         try {
             if (!this.views.has(name)) {
@@ -42,7 +49,9 @@ export class ViewManager {
             return null;
         }
     }
+    //#endregion
 
+    //#region CRUD Ops
     public Create(name: string, type: string): string {
         try {
             if (this.views.has(name)) {
@@ -57,7 +66,7 @@ export class ViewManager {
                 view = require(this.viewDir + "/" + type + ".js");
             } catch (err) {
                 try {
-                    view = require(__dirname + "/../game-views/" + type + ".js");
+                    view = require(__dirname + "/../game-views/types/" + type + ".js");
                 } catch (err2) {
                     console.error(
                     "{\n" + 
@@ -124,7 +133,9 @@ export class ViewManager {
 
         console.warn("ViewManager: Remove() -> No views to clear! I'm empty!");
     }
+    //#endregion
 
+    //#region Control Methods
     public Init(): void {
         if (this.views.size > 0) {
             this.views.forEach(vu => {
@@ -146,6 +157,7 @@ export class ViewManager {
                         // ...Skip this view.
                         return;
                     }
+                    
                     if (vu.VIsInitialized()) {
                         vu.VUpdate();
                     }
@@ -171,4 +183,5 @@ export class ViewManager {
             });
         }
     }
+    //#endregion
 }
