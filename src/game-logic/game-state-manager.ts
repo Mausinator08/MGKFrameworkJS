@@ -1,26 +1,72 @@
+/** @module game-logic */
+
 //#region Imports
-import { IGameState } from "./game-state-interface.js";
+import { IGameState } from "./game-state-interface";
 //#endregion
 
+/**
+ *
+ *
+ * @export
+ * @class StateManager
+ */
 export class StateManager {
     //#region Fields
+    /**
+     *
+     *
+     * @private
+     * @type {Map<string, IGameState>}
+     * @memberof StateManager
+     */
     private states: Map<string, IGameState>;
+    /**
+     *
+     *
+     * @type {string}
+     * @memberof StateManager
+     */
     public stateDir: string;
+    /**
+     *
+     *
+     * @type {Map<string, IGameState>}
+     * @memberof StateManager
+     */
     public activeStates: Map<string, IGameState>;
     //#endregion
 
     //#region Properties
+    /**
+     *
+     *
+     * @readonly
+     * @memberof StateManager
+     */
     public get count() {
         return this.states.size;
     }
     //#endregion
 
+    /**
+     * Creates an instance of StateManager.
+     * @param {string} statePath
+     * @memberof StateManager
+     */
     constructor(statePath: string) {
         this.states = new Map<string, IGameState>();
         this.stateDir = statePath;
     }
 
     //#region Accessors
+    /**
+     *
+     *
+     * @template T
+     * @param {string} name
+     * @return {*}  {(T | null)}
+     * @memberof StateManager
+     */
     public GetByName<T>(name: string): T | null {
         try {
             if (!this.states.has(name)) {
@@ -36,6 +82,14 @@ export class StateManager {
         }
     }
 
+    /**
+     *
+     *
+     * @template T
+     * @param {string} type
+     * @return {*}  {(T[] | null)}
+     * @memberof StateManager
+     */
     public GetArrayByType<T>(type: string): T[] | null {
         try {
             let sts: T[] = new Array<T>();
@@ -51,6 +105,14 @@ export class StateManager {
         }
     }
 
+    /**
+     *
+     *
+     * @template T
+     * @param {string} name
+     * @return {*}  {(T | null)}
+     * @memberof StateManager
+     */
     public GetActiveByName<T>(name: string): T | null {
         try {
             if (!this.activeStates.has(name)) {
@@ -66,6 +128,14 @@ export class StateManager {
         }
     }
 
+    /**
+     *
+     *
+     * @template T
+     * @param {string} type
+     * @return {*}  {(T[] | null)}
+     * @memberof StateManager
+     */
     public GetActiveArrayByType<T>(type: string): T[] | null {
         try {
             let sts: T[] = new Array<T>();
@@ -83,6 +153,14 @@ export class StateManager {
     //#endregion
 
     //#region CRUD Ops
+    /**
+     *
+     *
+     * @param {string} name
+     * @param {string} type
+     * @return {*}  {string}
+     * @memberof StateManager
+     */
     public Create(name: string, type: string): string {
         try {
             if (this.states.has(name)) {
@@ -123,6 +201,13 @@ export class StateManager {
         }
     }
 
+    /**
+     *
+     *
+     * @param {IGameState} state
+     * @return {*}  {boolean}
+     * @memberof StateManager
+     */
     public Add(state: IGameState): boolean {
         try {
             if (this.states.has(state.name) === true) {
@@ -140,6 +225,13 @@ export class StateManager {
         }
     }
 
+    /**
+     *
+     *
+     * @param {string} name
+     * @return {*}  {boolean}
+     * @memberof StateManager
+     */
     public Remove(name: string): boolean {
         try {
             if (!this.states.has(name)) {
@@ -156,6 +248,12 @@ export class StateManager {
         }
     }
 
+    /**
+     *
+     *
+     * @return {*}  {void}
+     * @memberof StateManager
+     */
     public Clear(): void {
         if (this.states.size > 0) {
             this.states.clear();
@@ -165,6 +263,11 @@ export class StateManager {
         console.warn("StateManager: Remove() -> No states to clear! I'm empty!");
     }
 
+    /**
+     *
+     *
+     * @memberof StateManager
+     */
     public ClearActive(): void {
         if (this.activeStates.size > 0) {
             let st = this.activeStates.clear();
@@ -173,6 +276,13 @@ export class StateManager {
     //#endregion
 
     //#region Game State Manipulation Methods
+    /**
+     *
+     *
+     * @param {string} name
+     * @return {*}  {boolean}
+     * @memberof StateManager
+     */
     public Activate(name: string): boolean {
         try {
             if (this.states.has(name) === false) {
@@ -193,6 +303,13 @@ export class StateManager {
         }
     }
 
+    /**
+     *
+     *
+     * @param {string} name
+     * @return {*}  {boolean}
+     * @memberof StateManager
+     */
     public Deactivate(name: string): boolean {
         try {
             if (this.states.has(name) === false) {
@@ -215,6 +332,11 @@ export class StateManager {
     //#endregion
 
     //#region Control Methods
+    /**
+     *
+     *
+     * @memberof StateManager
+     */
     public Init(): void {
         if (this.activeStates.size > 0) {
             this.activeStates.forEach(st => {
@@ -227,6 +349,11 @@ export class StateManager {
         }
     }
 
+    /**
+     *
+     *
+     * @memberof StateManager
+     */
     public Update(): void {
         if (this.activeStates.size > 0) {
             this.activeStates.forEach(st => {
@@ -248,6 +375,11 @@ export class StateManager {
         }
     }
 
+    /**
+     *
+     *
+     * @memberof StateManager
+     */
     public Shutdown(): void {
         if (this.activeStates.size > 0) {
             this.activeStates.forEach(st => {

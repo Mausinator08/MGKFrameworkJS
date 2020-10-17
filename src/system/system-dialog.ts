@@ -1,13 +1,34 @@
+/** @module system */
+
 //#region Imports
 import { BrowserWindow, remote } from "electron";
-import { GameCore } from "./../game/game-core.js"
+import { GameCore } from "./../game/game-core"
 //#endregion
 
+/**
+ *
+ *
+ * @export
+ * @class SystemDialog
+ */
 export class SystemDialog {
+    /**
+     * Creates an instance of SystemDialog.
+     * @memberof SystemDialog
+     */
     constructor() {
     }
 
     //#region Dialog Prompts
+    /**
+     *
+     *
+     * @param {string} message
+     * @param {Function} action
+     * @param {number} exitCode
+     * @return {*}  {HTMLElement}
+     * @memberof SystemDialog
+     */
     public Fatal(message: string, action: Function, exitCode: number): HTMLElement {
         let errorPopup: HTMLDivElement = document.createElement("div");
 
@@ -45,6 +66,12 @@ export class SystemDialog {
         return errorPopup;
     }
 
+    /**
+     *
+     *
+     * @return {*}  {HTMLElement}
+     * @memberof SystemDialog
+     */
     public QuitPrompt(): HTMLElement {
         let prompt: HTMLDivElement = document.createElement("div");
 

@@ -63,5 +63,5 @@ typings/
 # - Dev Excludes -
 
 # Folders
-private/
+/private/
 lib/

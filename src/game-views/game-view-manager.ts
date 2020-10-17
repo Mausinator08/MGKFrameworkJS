@@ -1,26 +1,66 @@
+/** @module game-views */
+
 //#region Imports
-import { IGameView } from "./game-view-interface.js";
-import { GameCore } from "./../game/game-core.js";
+import { IGameView } from "./game-view-interface";
+import { GameCore } from "./../game/game-core";
 //#endregion
 
+/**
+ *
+ *
+ * @export
+ * @class ViewManager
+ */
 export class ViewManager {
     //#region Fields
+    /**
+     *
+     *
+     * @private
+     * @type {Map<string, IGameView>}
+     * @memberof ViewManager
+     */
     private views: Map<string, IGameView>;
+    /**
+     *
+     *
+     * @type {string}
+     * @memberof ViewManager
+     */
     public viewDir: string;
     //#endregion
 
     //#region Properties
+    /**
+     *
+     *
+     * @readonly
+     * @memberof ViewManager
+     */
     public get count() {
         return this.views.size;
     }
     //#endregion
 
+    /**
+     * Creates an instance of ViewManager.
+     * @param {string} viewPath
+     * @memberof ViewManager
+     */
     constructor(viewPath: string) {
         this.views = new Map<string, IGameView>();
         this.viewDir = viewPath;
     }
 
     //#region Accessors
+    /**
+     *
+     *
+     * @template T
+     * @param {string} name
+     * @return {*}  {(T | null)}
+     * @memberof ViewManager
+     */
     public GetByName<T>(name: string): T | null {
         try {
             if (!this.views.has(name)) {
@@ -36,6 +76,14 @@ export class ViewManager {
         }
     }
 
+    /**
+     *
+     *
+     * @template T
+     * @param {string} type
+     * @return {*}  {(T[] | null)}
+     * @memberof ViewManager
+     */
     public GetArrayByType<T>(type: string): T[] | null {
         try {
             let coms: T[] = new Array<T>();
@@ -53,6 +101,14 @@ export class ViewManager {
     //#endregion
 
     //#region CRUD Ops
+    /**
+     *
+     *
+     * @param {string} name
+     * @param {string} type
+     * @return {*}  {string}
+     * @memberof ViewManager
+     */
     public Create(name: string, type: string): string {
         try {
             if (this.views.has(name)) {
@@ -93,6 +149,13 @@ export class ViewManager {
         }
     }
 
+    /**
+     *
+     *
+     * @param {IGameView} view
+     * @return {*}  {boolean}
+     * @memberof ViewManager
+     */
     public Add(view: IGameView): boolean {
         try {
             if (this.views.has(view.name)) {
@@ -110,6 +173,13 @@ export class ViewManager {
         }
     }
 
+    /**
+     *
+     *
+     * @param {string} name
+     * @return {*}  {boolean}
+     * @memberof ViewManager
+     */
     public Remove(name: string): boolean {
         try {
             if (!this.views.has(name)) {
@@ -126,6 +196,12 @@ export class ViewManager {
         }
     }
 
+    /**
+     *
+     *
+     * @return {*}  {void}
+     * @memberof ViewManager
+     */
     public Clear(): void {
         if (this.views.size > 0) {
             this.views.clear();
@@ -137,6 +213,11 @@ export class ViewManager {
     //#endregion
 
     //#region Control Methods
+    /**
+     *
+     *
+     * @memberof ViewManager
+     */
     public Init(): void {
         if (this.views.size > 0) {
             this.views.forEach(vu => {
@@ -149,6 +230,11 @@ export class ViewManager {
         }
     }
 
+    /**
+     *
+     *
+     * @memberof ViewManager
+     */
     public Update(): void {
         if (this.views.size > 0) {
             this.views.forEach(vu => {
@@ -170,6 +256,11 @@ export class ViewManager {
         }
     }
 
+    /**
+     *
+     *
+     * @memberof ViewManager
+     */
     public Shutdown(): void {
         if (this.views.size > 0) {
             this.views.forEach(vu => {

@@ -1,41 +1,145 @@
+/** @module game */
+
 //#region Imports
-import { ComponentManager } from "./../components/component-manager.js";
+import { ComponentManager } from "./../components/component-manager";
 import { BrowserWindow, remote } from "electron";
-import { BaseGameLogic } from "./../game-logic/base-game-logic.js";
-import { SystemDialog } from "./../system/system-dialog.js";
+import { BaseGameLogic } from "./../game-logic/base-game-logic";
+import { SystemDialog } from "./../system/system-dialog";
 //#endregion
 
 //#region Globals
+/** @type {*} */
 var gameLoaded: boolean = false;
+/** @type {*} */
 var loadGame: Function;
 //#endregion
 
+/**
+ *
+ *
+ * @export
+ * @class GameCore
+ */
 export class GameCore {
     //#region Fields
+    /**
+     *
+     *
+     * @type {Function}
+     * @memberof GameCore
+     */
     public preInitFunc: Function = null;
+    /**
+     *
+     *
+     * @type {HTMLCanvasElement}
+     * @memberof GameCore
+     */
     public _canvas: HTMLCanvasElement;
+    /**
+     *
+     *
+     * @type {ComponentManager}
+     * @memberof GameCore
+     */
     public comMan: ComponentManager;
+    /**
+     *
+     *
+     * @protected
+     * @type {boolean}
+     * @memberof GameCore
+     */
     protected quitting: boolean = false;
+    /**
+     *
+     *
+     * @protected
+     * @type {boolean}
+     * @memberof GameCore
+     */
     protected exitting: boolean = false;
+    /**
+     *
+     *
+     * @type {string[]}
+     * @memberof GameCore
+     */
     public createdComponents: string[] = [];
+    /**
+     *
+     *
+     * @protected
+     * @type {number}
+     * @memberof GameCore
+     */
     protected exitCode: number = 0;
+    /**
+     *
+     *
+     * @type {BaseGameLogic}
+     * @memberof GameCore
+     */
     public gameLogic: BaseGameLogic;
+    /**
+     *
+     *
+     * @protected
+     * @type {boolean}
+     * @memberof GameCore
+     */
     protected isInitialized: boolean = false;
+    /**
+     *
+     *
+     * @protected
+     * @type {boolean}
+     * @memberof GameCore
+     */
     protected reInit: boolean = true;
 
+    /**
+     *
+     *
+     * @protected
+     * @type {SystemDialog}
+     * @memberof GameCore
+     */
     protected systemDialog: SystemDialog = new SystemDialog();
     //#endregion
 
     //#region Static Fields
+    /**
+     *
+     *
+     * @static
+     * @type {GameCore}
+     * @memberof GameCore
+     */
     static game: GameCore;
     //#endregion
 
     //#region Static Accessors
+    /**
+     *
+     *
+     * @static
+     * @template T
+     * @param {T} gameType
+     * @memberof GameCore
+     */
     static SetGameType<T>(gameType: T): void {
         GameCore.game = gameType as unknown as GameCore;
     }
     //#endregion
 
+    /**
+     * Creates an instance of GameCore.
+     * @param {string} canvasElement
+     * @param {string} comPath
+     * @param {BaseGameLogic} logic
+     * @memberof GameCore
+     */
     constructor(canvasElement: string, comPath: string, logic: BaseGameLogic) {
         this.gameLogic = logic;
         this._canvas = document.getElementById(canvasElement) as HTMLCanvasElement;
@@ -43,35 +147,74 @@ export class GameCore {
     }
 
     //#region Accessors
+    /**
+     *
+     *
+     * @readonly
+     * @type {boolean}
+     * @memberof GameCore
+     */
     public get ReInit(): boolean {
         return this.reInit;
     }
 
     // Returns wether the program is terminating or still running
+    /**
+     *
+     *
+     * @return {*}  {boolean}
+     * @memberof GameCore
+     */
     public Quitting(): boolean {
         return this.quitting;
     }
 
     // Tell engine to start shutting down and then terminate
+    /**
+     *
+     *
+     * @memberof GameCore
+     */
     public Quit(): void {
         this.quitting = true;
     }
 
     // Returns whether the user requested to exit
+    /**
+     *
+     *
+     * @return {*}  {boolean}
+     * @memberof GameCore
+     */
     public Exitting(): boolean {
         return this.exitting;
     }
 
     // The user requested to exit
+    /**
+     *
+     *
+     * @memberof GameCore
+     */
     public Exit(): void {
         this.exitting = true;
     }
 
     // The user decided not to exit after initial exit request... (make up your mind!!!)
+    /**
+     *
+     *
+     * @memberof GameCore
+     */
     public CancelExit(): void {
         this.exitting = false;
     }
 
+    /**
+     *
+     *
+     * @memberof GameCore
+     */
     public ReInitialize(): void {
         this.reInit = true;
         this.isInitialized = false;
@@ -79,10 +222,25 @@ export class GameCore {
     //#endregion
 
     //#region Dialog Methods
+    /**
+     *
+     *
+     * @param {string} message
+     * @param {Function} action
+     * @param {number} exitCode
+     * @return {*}  {HTMLElement}
+     * @memberof GameCore
+     */
     public Fatal(message: string, action: Function, exitCode: number): HTMLElement {
         return this.systemDialog.Fatal(message, action, exitCode);
     }
 
+    /**
+     *
+     *
+     * @return {*}  {HTMLElement}
+     * @memberof GameCore
+     */
     public QuitPrompt(): HTMLElement {
         return this.systemDialog.QuitPrompt();
     }
@@ -90,6 +248,12 @@ export class GameCore {
 
     //#region Control Method Overrides
     // OVERRIDES
+    /**
+     *
+     *
+     * @return {*}  {boolean}
+     * @memberof GameCore
+     */
     public VInit(): boolean {
         try {
             if (this.preInitFunc !== null) {
@@ -134,6 +298,12 @@ export class GameCore {
         }
     }
 
+    /**
+     *
+     *
+     * @return {*}  {void}
+     * @memberof GameCore
+     */
     public VUpdate(): void {
         if (!this.quitting) {
             if (this.reInit === true) {
@@ -160,6 +330,11 @@ export class GameCore {
         }
     }
 
+    /**
+     *
+     *
+     * @memberof GameCore
+     */
     public VShutdown(): void {
         this.gameLogic.VShutdown();
         this.comMan.Shutdown();
@@ -176,6 +351,12 @@ export class GameCore {
 }
 
 //#region Exports
+/**
+ *
+ *
+ * @export
+ * @param {Function} cbLoadGame
+ */
 export function OnDOMContentLoaded(cbLoadGame: Function): void {
     loadGame = cbLoadGame;
 }

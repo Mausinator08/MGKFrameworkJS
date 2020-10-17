@@ -1,20 +1,86 @@
+/** @module game-views/types */
+
 //#region Imports
-import { IGameView } from "../game-view-interface.js";
-import { Renderer } from "../../components/types/renderer.js";
-import { GameCore } from "../../game/game-core.js";
-import { BaseGameLogic } from "../../game-logic/base-game-logic.js";
+import { IGameView } from "../game-view-interface";
+import { Renderer } from "../../components/types/renderer";
+import { GameCore } from "../../game/game-core";
+import { BaseGameLogic } from "../../game-logic/base-game-logic";
 //#endregion
 
+/**
+ *
+ *
+ * @export
+ * @class HumanView
+ * @implements {IGameView}
+ */
 export class HumanView implements IGameView {
     //#region Fields
+    /**
+     *
+     *
+     * @type {string}
+     * @memberof HumanView
+     */
     public name: string = "HumanView";
+    /**
+     *
+     *
+     * @type {string}
+     * @memberof HumanView
+     */
     public type: string = "HumanView";
+    /**
+     *
+     *
+     * @type {boolean}
+     * @memberof HumanView
+     */
     public autoUpdate: boolean = false;
+    /**
+     *
+     *
+     * @type {boolean}
+     * @memberof HumanView
+     */
     public reInit: boolean = true;
+    /**
+     *
+     *
+     * @type {boolean}
+     * @memberof HumanView
+     */
     public requestShutdown: boolean = false;
+    /**
+     *
+     *
+     * @type {BaseGameLogic}
+     * @memberof HumanView
+     */
     public gameLogic: BaseGameLogic;
+    /**
+     *
+     *
+     * @private
+     * @type {string}
+     * @memberof HumanView
+     */
     private rendererName: string = "";
+    /**
+     *
+     *
+     * @private
+     * @type {boolean}
+     * @memberof HumanView
+     */
     private isInitialized: boolean = false;
+    /**
+     *
+     *
+     * @private
+     * @type {*}
+     * @memberof HumanView
+     */
     private clearColor: any = {
         r: 0.0,
         g: 0.0,
@@ -22,6 +88,13 @@ export class HumanView implements IGameView {
         a: 0.0
     };
 
+    /**
+     *
+     *
+     * @private
+     * @type {Function}
+     * @memberof HumanView
+     */
     private cbSceneLoader: Function = function (scene: BABYLON.Scene, canvas: HTMLCanvasElement): BABYLON.Scene {
         let defaultCamera: BABYLON.FreeCamera = new BABYLON.FreeCamera("camera_default", new BABYLON.Vector3(-5, 10, -5), scene);
 
@@ -33,26 +106,63 @@ export class HumanView implements IGameView {
     //#endregion
     
     //#region Accessors
+    /**
+     *
+     *
+     * @return {*}  {boolean}
+     * @memberof HumanView
+     */
     public VIsInitialized(): boolean {
         return this.isInitialized;
     }
 
+    /**
+     *
+     *
+     * @memberof HumanView
+     */
     public VReInit(): void {
         this.reInit = true;
     }
 
+    /**
+     *
+     *
+     * @return {*}  {boolean}
+     * @memberof HumanView
+     */
     public VIsReInit(): boolean {
         return this.reInit;
     }
 
+    /**
+     *
+     *
+     * @return {*}  {boolean}
+     * @memberof HumanView
+     */
     public VShutdownRequested(): boolean {
         return this.requestShutdown;
     }
 
+    /**
+     *
+     *
+     * @memberof HumanView
+     */
     public VRequestShutdown(): void {
         this.requestShutdown = true;
     }
 
+    /**
+     *
+     *
+     * @param {number} r
+     * @param {number} g
+     * @param {number} b
+     * @param {number} a
+     * @memberof HumanView
+     */
     public SetBackgroundColor(r: number, g: number, b: number, a: number): void {
         this.clearColor.r = r;
         this.clearColor.g = g;
@@ -60,21 +170,45 @@ export class HumanView implements IGameView {
         this.clearColor.a = a;
     }
 
+    /**
+     *
+     *
+     * @param {string} name
+     * @memberof HumanView
+     */
     public SetRendererName(name: string) {
         this.rendererName = name;
     }
 
+    /**
+     *
+     *
+     * @param {Function} cbSceneFunc
+     * @memberof HumanView
+     */
     public SetSceneLoader(cbSceneFunc: Function): void {
         this.cbSceneLoader = cbSceneFunc;
     }
     //#endregion
     
+    /**
+     * Creates an instance of HumanView.
+     * @param {string} name
+     * @param {BaseGameLogic} gameLogic
+     * @memberof HumanView
+     */
     constructor(name: string, gameLogic: BaseGameLogic) {
         this.name = name;
         this.gameLogic = gameLogic;
     }
 
     //#region Control Method Overrides
+    /**
+     *
+     *
+     * @return {*}  {boolean}
+     * @memberof HumanView
+     */
     public VInit(): boolean {
         let renderer = GameCore.game.comMan.GetByName<Renderer>(this.rendererName);
 
@@ -85,6 +219,12 @@ export class HumanView implements IGameView {
         return true;
     }
 
+    /**
+     *
+     *
+     * @return {*}  {void}
+     * @memberof HumanView
+     */
     public VUpdate(): void {
         if (GameCore.game.Quitting() === true) {
             this.requestShutdown = true;
@@ -110,6 +250,11 @@ export class HumanView implements IGameView {
         renderer.EndScene();
     }
 
+    /**
+     *
+     *
+     * @memberof HumanView
+     */
     public VShutdown(): void {
         if (this.requestShutdown === true) {
             this.isInitialized = false;
@@ -120,6 +265,14 @@ export class HumanView implements IGameView {
 }
 
 // Renderer component creator
+/**
+ *
+ *
+ * @export
+ * @param {string} name
+ * @param {BaseGameLogic} gameLogic
+ * @return {*}  {HumanView}
+ */
 export function Create(name: string, gameLogic: BaseGameLogic): HumanView {
     return new HumanView(name, gameLogic);
 }

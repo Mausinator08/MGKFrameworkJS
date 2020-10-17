@@ -1,25 +1,65 @@
+/** @module components */
+
 //#region Imports
-import { Component } from "./component.js";
+import { Component } from "./component";
 //#endregion
 
+/**
+ *
+ *
+ * @export
+ * @class ComponentManager
+ */
 export class ComponentManager {
     //#region fields
+    /**
+     *
+     *
+     * @private
+     * @type {Map<string, Component>}
+     * @memberof ComponentManager
+     */
     private components: Map<string, Component>;
+    /**
+     *
+     *
+     * @type {string}
+     * @memberof ComponentManager
+     */
     public comDir: string;
     //#endregion
     
     //#region Properties    
+    /**
+     *
+     *
+     * @readonly
+     * @memberof ComponentManager
+     */
     public get count() {
         return this.components.size;
     }
     //#endregion
 
+    /**
+     * Creates an instance of ComponentManager.
+     * @param {string} comPath
+     * @memberof ComponentManager
+     */
     constructor(comPath: string) {
         this.components = new Map<string, Component>();
         this.comDir = comPath;
     }
 
     //#region Accessors
+    /**
+     *
+     *
+     * @template T
+     * @param {string} name
+     * @return {*}  {(T | null)}
+     * @memberof ComponentManager
+     */
     public GetByName<T>(name: string): T | null {
         try {
             if (!this.components.has(name)) {
@@ -35,6 +75,14 @@ export class ComponentManager {
         }
     }
 
+    /**
+     *
+     *
+     * @template T
+     * @param {string} type
+     * @return {*}  {(T[] | null)}
+     * @memberof ComponentManager
+     */
     public GetArrayByType<T>(type: string): T[] | null {
         try {
             let coms: T[] = new Array<T>();
@@ -52,6 +100,14 @@ export class ComponentManager {
     //#endregion
 
     //#region CRUD Ops
+    /**
+     *
+     *
+     * @param {string} name
+     * @param {string} type
+     * @return {*}  {string}
+     * @memberof ComponentManager
+     */
     public Create(name: string, type: string): string {
         try {
             if (this.components.has(name)) {
@@ -92,6 +148,13 @@ export class ComponentManager {
         }
     }
 
+    /**
+     *
+     *
+     * @param {Component} component
+     * @return {*}  {boolean}
+     * @memberof ComponentManager
+     */
     public Add(component: Component): boolean {
         try {
             if (this.components.has(component.VGetName())) {
@@ -109,6 +172,13 @@ export class ComponentManager {
         }
     }
 
+    /**
+     *
+     *
+     * @param {string} name
+     * @return {*}  {boolean}
+     * @memberof ComponentManager
+     */
     public Remove(name: string): boolean {
         try {
             if (!this.components.has(name)) {
@@ -125,6 +195,12 @@ export class ComponentManager {
         }
     }
 
+    /**
+     *
+     *
+     * @return {*}  {void}
+     * @memberof ComponentManager
+     */
     public Clear(): void {
         if (this.components.size > 0) {
             this.components.clear();
@@ -136,6 +212,11 @@ export class ComponentManager {
     //#endregion
 
     //#region Control Methods
+    /**
+     *
+     *
+     * @memberof ComponentManager
+     */
     public Init(): void {
         if (this.components.size > 0) {
             this.components.forEach(com => {
@@ -148,6 +229,11 @@ export class ComponentManager {
         }
     }
 
+    /**
+     *
+     *
+     * @memberof ComponentManager
+     */
     public Update(): void {
         if (this.components.size > 0) {
             this.components.forEach(com => {
@@ -163,6 +249,11 @@ export class ComponentManager {
         }
     }
 
+    /**
+     *
+     *
+     * @memberof ComponentManager
+     */
     public Shutdown(): void {
         if (this.components.size > 0) {
             this.components.forEach(com => {
