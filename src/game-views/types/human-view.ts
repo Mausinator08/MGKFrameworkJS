@@ -2,6 +2,7 @@
 import { IGameView } from "../game-view-interface.js";
 import { Renderer } from "../../components/types/renderer.js";
 import { GameCore } from "../../game/game-core.js";
+import { BaseGameLogic } from "../../game-logic/base-game-logic.js";
 //#endregion
 
 export class HumanView implements IGameView {
@@ -11,6 +12,7 @@ export class HumanView implements IGameView {
     public autoUpdate: boolean = false;
     public reInit: boolean = true;
     public requestShutdown: boolean = false;
+    public gameLogic: BaseGameLogic;
     private rendererName: string = "";
     private isInitialized: boolean = false;
     private clearColor: any = {
@@ -67,8 +69,9 @@ export class HumanView implements IGameView {
     }
     //#endregion
     
-    constructor(name: string) {
+    constructor(name: string, gameLogic: BaseGameLogic) {
         this.name = name;
+        this.gameLogic = gameLogic;
     }
 
     //#region Control Method Overrides
@@ -117,6 +120,6 @@ export class HumanView implements IGameView {
 }
 
 // Renderer component creator
-export function Create(name: string): HumanView {
-    return new HumanView(name);
+export function Create(name: string, gameLogic: BaseGameLogic): HumanView {
+    return new HumanView(name, gameLogic);
 }

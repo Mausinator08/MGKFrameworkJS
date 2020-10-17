@@ -1,5 +1,6 @@
 //#region Imports
 import { IGameView } from "./game-view-interface.js";
+import { GameCore } from "./../game/game-core.js";
 //#endregion
 
 export class ViewManager {
@@ -81,7 +82,7 @@ export class ViewManager {
                 }
             }
 
-            this.views.set(name, view.Create(name));
+            this.views.set(name, view.Create(name, GameCore.game.gameLogic));
             return JSON.stringify({ viewName: name, code: "created" });
         } catch (err) {
             console.error("ViewManager: Create() -> Could not create view [" + name + "] of type <" + type + ">!\n" + 

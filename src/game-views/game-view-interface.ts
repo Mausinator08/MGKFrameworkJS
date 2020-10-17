@@ -1,3 +1,7 @@
+//#region Imports
+import { BaseGameLogic } from "./../game-logic/base-game-logic.js"
+//#endregion
+
 export interface IGameView {
     //#region Methods
     VInit(): boolean;
@@ -16,5 +20,6 @@ export interface IGameView {
     autoUpdate: boolean;
     reInit: boolean;
     requestShutdown: boolean;
+    gameLogic: BaseGameLogic;
     //#endregion
 }
