@@ -7,9 +7,8 @@ import { Color4 } from 'babylonjs';
 import { GameCore } from './../../game/game-core';
 //#endregion
 
-// BabylonJS renderer - this needs to be created and initialized after all other dependent components.
 /**
- *
+ * BabylonJS renderer - this needs to be created and initialized after all other dependent components.
  *
  * @export
  * @class Renderer
@@ -18,7 +17,7 @@ import { GameCore } from './../../game/game-core';
 export class Renderer extends Component {
     //#region Fields
     /**
-     *
+     * This is the main rendering canvas in index.html.
      *
      * @private
      * @type {HTMLCanvasElement}
@@ -26,7 +25,7 @@ export class Renderer extends Component {
      */
     private _canvas: HTMLCanvasElement;
     /**
-     *
+     * The BabylonJS Graphics/Physics Engine.
      *
      * @private
      * @type {BABYLON.Engine}
@@ -34,7 +33,7 @@ export class Renderer extends Component {
      */
     private _engine: BABYLON.Engine;
     /**
-     *
+     * BabylonJS Scene Nodes
      *
      * @private
      * @type {BABYLON.Scene}
@@ -42,7 +41,7 @@ export class Renderer extends Component {
      */
     private _scene: BABYLON.Scene;
     /**
-     *
+     * A reference to the GameCore class.
      *
      * @private
      * @type {GameCore}
@@ -50,7 +49,7 @@ export class Renderer extends Component {
      */
     private gameCore: GameCore;
     /**
-     *
+     * Determines if the game logic and views are running through the BabylonJS Loop or paused.
      *
      * @private
      * @type {boolean}
@@ -70,7 +69,7 @@ export class Renderer extends Component {
 
     //#region Properties
     /**
-     *
+     * Get the main rendering canvas from index.html.
      *
      * @type {HTMLCanvasElement}
      * @memberof Renderer
@@ -80,7 +79,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * This sets the html rendering canvas.
      *
      * @memberof Renderer
      */
@@ -89,7 +88,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * Get the BabylonJS Engine.
      *
      * @type {BABYLON.Engine}
      * @memberof Renderer
@@ -99,7 +98,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * Set the BabylonJS Engine instance.
      *
      * @memberof Renderer
      */
@@ -108,7 +107,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * Get the currently rendered scene.
      *
      * @type {BABYLON.Scene}
      * @memberof Renderer
@@ -118,7 +117,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * Set the currently rendered scene.
      *
      * @memberof Renderer
      */
@@ -129,7 +128,7 @@ export class Renderer extends Component {
 
     //#region Accessors
     /**
-     *
+     * Allows setting the referenced game.
      *
      * @param {GameCore} game
      * @memberof Renderer
@@ -139,17 +138,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
-     *
-     * @param {HTMLCanvasElement} canvas
-     * @memberof Renderer
-     */
-    public SetCanvas(canvas: HTMLCanvasElement): void {
-        this._canvas = canvas;
-    }
-
-    /**
-     *
+     * Modify what is in the scene by passing a callback function to cbModifyScene.
      *
      * @param {Function} cbModifyScene
      * @memberof Renderer
@@ -161,7 +150,7 @@ export class Renderer extends Component {
 
     //#region CRUD Ops
     /**
-     *
+     * Creates a new scene and returns it based on the passed callback function cbLoadScene.
      *
      * @param {Function} cbLoadScene
      * @memberof Renderer
@@ -177,7 +166,7 @@ export class Renderer extends Component {
     
     //#region Scene Rendering
     /**
-     *
+     * Clears the screen to the specified color.
      *
      * @param {number} r
      * @param {number} g
@@ -190,7 +179,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * Renders the scene.
      *
      * @memberof Renderer
      */
@@ -199,7 +188,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * Starts the game logic and views.
      *
      * @memberof Renderer
      */
@@ -208,7 +197,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * Stops the game logic and views.
      *
      * @memberof Renderer
      */
@@ -219,7 +208,7 @@ export class Renderer extends Component {
 
     //#region Control Method Overrides
     /**
-     *
+     * Initializes the BabylonJS engine with the current rendering html canvas.
      *
      * @return {*}  {boolean}
      * @memberof Renderer
@@ -241,7 +230,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * Controls when to run the rendering loop for the game logic and views.
      *
      * @memberof Renderer
      */
@@ -266,7 +255,7 @@ export class Renderer extends Component {
     }
 
     /**
-     *
+     * Will release the BabylonJS rendering items and shutdown.
      *
      * @memberof Renderer
      */
@@ -277,9 +266,8 @@ export class Renderer extends Component {
     //#endregion
 };
 
-// Renderer component creator
 /**
- *
+ * Renderer component creator
  *
  * @export
  * @param {string} name

@@ -4,9 +4,8 @@
 import { Component } from "../components/component";
 //#endregion
 
-/** Creates actors based on the type of actor passed and it's components */
 /**
- *
+ * Creates actors based on the type of actor passed and it's components
  *
  * @export
  * @class ActorFactory

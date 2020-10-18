@@ -1,7 +1,7 @@
 /** @module components */
 
 /**
- *
+ * The base component class. Components like the renderer inherit this class.
  *
  * @export
  * @class Component
@@ -9,7 +9,7 @@
 export class Component {
     //#region Fields
     /**
-     *
+     * Component name (key) for look up in component manager.
      *
      * @protected
      * @type {string}
@@ -17,7 +17,7 @@ export class Component {
      */
     protected name: string = "component";
     /**
-     *
+     * Component type. Multiple components can be retreived from component manager with GetArrayByType().
      *
      * @protected
      * @type {string}
@@ -25,7 +25,7 @@ export class Component {
      */
     protected type: string = "component";
     /**
-     *
+     * True if initialized, false otherwise.
      *
      * @protected
      * @type {boolean}
@@ -33,7 +33,7 @@ export class Component {
      */
     protected isInitialized: boolean = false;
     /**
-     *
+     * If reInit is true, the component may have new resources to initialize so componenet manager will know to initialize again.
      *
      * @protected
      * @type {boolean}
@@ -41,7 +41,7 @@ export class Component {
      */
     protected reInit: boolean = true;
     /**
-     *
+     * If true, resources are freed and the component is uninitialized. It still exists in component manager for later initialization.
      *
      * @protected
      * @type {boolean}
@@ -63,7 +63,7 @@ export class Component {
 
     //#region Accessors
     /**
-     *
+     * Returns whether or not this component is initialized.
      *
      * @readonly
      * @type {boolean}
@@ -74,7 +74,7 @@ export class Component {
     }
 
     /**
-     *
+     * Returns whether or not this component needs to be reinitialized
      *
      * @readonly
      * @type {boolean}
@@ -84,7 +84,7 @@ export class Component {
         return this.reInit;
     }
     /**
-     *
+     * This will mark the component in component manager for reinitialization.
      *
      * @memberof Component
      */
@@ -94,7 +94,7 @@ export class Component {
     }
 
     /**
-     *
+     * Returns if the component has been marked for shutdown.
      *
      * @return {*}  {boolean}
      * @memberof Component
@@ -104,7 +104,7 @@ export class Component {
     }
 
     /**
-     *
+     * Marks the component for shutdown.
      *
      * @memberof Component
      */
@@ -116,7 +116,8 @@ export class Component {
     //#region Control Method Overrides
     // Core functions.
     /**
-     *
+     * Initialize the component and mark it as initialized if successful.
+     * This is an override
      *
      * @return {*}  {boolean}
      * @memberof Component
@@ -127,7 +128,8 @@ export class Component {
     }
 
     /**
-     *
+     * If Initialized, run the update function.
+     * This is an override
      *
      * @memberof Component
      */
@@ -138,7 +140,8 @@ export class Component {
     }
 
     /**
-     *
+     * This is only called by component manager if requestShutdown === true
+     * This is an override
      *
      * @memberof Component
      */
@@ -151,7 +154,7 @@ export class Component {
 
     //#region Name and Type retrieval functions
     /**
-     *
+     * Returns the set name of this component.
      *
      * @return {*}  {string}
      * @memberof Component
@@ -161,7 +164,7 @@ export class Component {
     }
 
     /**
-     *
+     * Returns the set sub-type of this component.
      *
      * @return {*}  {string}
      * @memberof Component

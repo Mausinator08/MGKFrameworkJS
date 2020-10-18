@@ -15,7 +15,8 @@ var loadGame: Function;
 //#endregion
 
 /**
- *
+ * This is the base game system. All system components live in the component manager in this class.
+ * The game logic class is instantiated and controlled from this class.
  *
  * @export
  * @class GameCore
@@ -23,28 +24,28 @@ var loadGame: Function;
 export class GameCore {
     //#region Fields
     /**
-     *
+     * This function is assigned to from the game project in the class that inherits this class.
      *
      * @type {Function}
      * @memberof GameCore
      */
     public preInitFunc: Function = null;
     /**
-     *
+     * The index.html rendering canvas.
      *
      * @type {HTMLCanvasElement}
      * @memberof GameCore
      */
     public _canvas: HTMLCanvasElement;
     /**
-     *
+     * Controls system components and their flow.
      *
      * @type {ComponentManager}
      * @memberof GameCore
      */
     public comMan: ComponentManager;
     /**
-     *
+     * Used to determine if the user confirmed that they want to exit.
      *
      * @protected
      * @type {boolean}
@@ -52,7 +53,7 @@ export class GameCore {
      */
     protected quitting: boolean = false;
     /**
-     *
+     * Used to determine if the user has clicked the X, or triggered an exit is some way before the user confirms that they want to exit.
      *
      * @protected
      * @type {boolean}
@@ -60,14 +61,14 @@ export class GameCore {
      */
     protected exitting: boolean = false;
     /**
-     *
+     * This holds an array of strings for the names of the components that were created in the preInitFunc function.
      *
      * @type {string[]}
      * @memberof GameCore
      */
     public createdComponents: string[] = [];
     /**
-     *
+     * If quitting, for any reason, this holds the exit code. (0 if OK, positive number if error depending on error.)
      *
      * @protected
      * @type {number}
@@ -75,14 +76,14 @@ export class GameCore {
      */
     protected exitCode: number = 0;
     /**
-     *
+     * The game's logic class which also contains views and actors and manipulates the game's components.
      *
      * @type {BaseGameLogic}
      * @memberof GameCore
      */
     public gameLogic: BaseGameLogic;
     /**
-     *
+     * Whether the game is initialized.
      *
      * @protected
      * @type {boolean}
@@ -90,7 +91,7 @@ export class GameCore {
      */
     protected isInitialized: boolean = false;
     /**
-     *
+     * Whether the game needs to be reinitialized such as a critical change in settings.
      *
      * @protected
      * @type {boolean}
@@ -99,7 +100,7 @@ export class GameCore {
     protected reInit: boolean = true;
 
     /**
-     *
+     * Holds the basic dialog for the system. (This is NOT game UI)
      *
      * @protected
      * @type {SystemDialog}
@@ -110,7 +111,7 @@ export class GameCore {
 
     //#region Static Fields
     /**
-     *
+     * Holds a copy of GameCore's instance after initialization to be referenced throughout the game's other parts.
      *
      * @static
      * @type {GameCore}
@@ -121,7 +122,7 @@ export class GameCore {
 
     //#region Static Accessors
     /**
-     *
+     * The game using this framework passes itself through this function to be used in other sections of the game.
      *
      * @static
      * @template T
@@ -148,7 +149,7 @@ export class GameCore {
 
     //#region Accessors
     /**
-     *
+     * The call to reinitialize the game if needed...
      *
      * @readonly
      * @type {boolean}
@@ -158,9 +159,8 @@ export class GameCore {
         return this.reInit;
     }
 
-    // Returns wether the program is terminating or still running
     /**
-     *
+     * Returns wether the program is terminating or still running
      *
      * @return {*}  {boolean}
      * @memberof GameCore
@@ -169,9 +169,8 @@ export class GameCore {
         return this.quitting;
     }
 
-    // Tell engine to start shutting down and then terminate
     /**
-     *
+     * Tell engine to start shutting down and then terminate
      *
      * @memberof GameCore
      */
@@ -179,9 +178,8 @@ export class GameCore {
         this.quitting = true;
     }
 
-    // Returns whether the user requested to exit
     /**
-     *
+     * Returns whether the user requested to exit
      *
      * @return {*}  {boolean}
      * @memberof GameCore
@@ -190,9 +188,8 @@ export class GameCore {
         return this.exitting;
     }
 
-    // The user requested to exit
     /**
-     *
+     * The user requested to exit
      *
      * @memberof GameCore
      */
@@ -200,9 +197,8 @@ export class GameCore {
         this.exitting = true;
     }
 
-    // The user decided not to exit after initial exit request... (make up your mind!!!)
     /**
-     *
+     * The user decided not to exit after initial exit request... (make up your mind!!!)
      *
      * @memberof GameCore
      */
@@ -211,7 +207,7 @@ export class GameCore {
     }
 
     /**
-     *
+     * Returns true if the game is reinitializing.
      *
      * @memberof GameCore
      */
@@ -223,7 +219,7 @@ export class GameCore {
 
     //#region Dialog Methods
     /**
-     *
+     * Call this if an unrecoverable error ocurrs.
      *
      * @param {string} message
      * @param {Function} action
@@ -236,7 +232,7 @@ export class GameCore {
     }
 
     /**
-     *
+     * Displays the dialog for when the user wants to exit confirming if they really want to exit.
      *
      * @return {*}  {HTMLElement}
      * @memberof GameCore
@@ -249,7 +245,8 @@ export class GameCore {
     //#region Control Method Overrides
     // OVERRIDES
     /**
-     *
+     * Will call the preInitialization function first and then run at least one engine update before looping.
+     * Override this method.
      *
      * @return {*}  {boolean}
      * @memberof GameCore
@@ -299,7 +296,8 @@ export class GameCore {
     }
 
     /**
-     *
+     * Updates the game logic and views.
+     * Override this method.
      *
      * @return {*}  {void}
      * @memberof GameCore
@@ -331,7 +329,8 @@ export class GameCore {
     }
 
     /**
-     *
+     * Will call the shutdown() functions of the game logic/views/components as need. If quitting === true the whole game shutsdown.
+     * Override this method.
      *
      * @memberof GameCore
      */
@@ -352,7 +351,8 @@ export class GameCore {
 
 //#region Exports
 /**
- *
+ * OnDOMContentLoaded is exported so that it can be passed the cbLoadGame function which is defined
+ * in the game system class inheriting the class GameCore, usually in the game project that uses this framework.
  *
  * @export
  * @param {Function} cbLoadGame
@@ -363,7 +363,7 @@ export function OnDOMContentLoaded(cbLoadGame: Function): void {
 //#endregion
 
 //#region Global Execution
-// Add event listener for when to start the game engine after the electron application is loaded.
+/** Add event listener for when to start the game engine after the electron application is loaded. */
 window.addEventListener('DOMContentLoaded', () => {
     if (!gameLoaded){
         loadGame();

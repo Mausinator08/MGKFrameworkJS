@@ -17,20 +17,14 @@ import { StateManager } from "./game-state-manager";
 export class BaseGameLogic {
     //#region Fields
     /**
-     *
-     *
-     * @type {Function}
-     * @memberof BaseGameLogic
-     */
-    /**
-     *
+     * This is called from the subclass's preinit function before anything else. (Creates the minimal views and setup.)
      *
      * @type {Function}
      * @memberof BaseGameLogic
      */
     public preInitFunc: Function;
     /**
-     *
+     * Whether logic is paused. (Rendering continues)
      *
      * @protected
      * @type {boolean}
@@ -38,7 +32,7 @@ export class BaseGameLogic {
      */
     protected paused: boolean = false;
     /**
-     *
+     * Stores whether logic has been initialized.
      *
      * @protected
      * @type {boolean}
@@ -46,28 +40,28 @@ export class BaseGameLogic {
      */
     protected isInitialized: boolean = false;
     /**
-     *
+     * Is this the server or just the client game logic.
      *
      * @type {boolean}
      * @memberof BaseGameLogic
      */
     public isServerLogic: boolean = false;
     /**
-     *
+     * The view manager. (The human view(s) contain(s) the rendering scene and user input. Other view types can be inserted in the view manager.)
      *
      * @type {ViewManager}
      * @memberof BaseGameLogic
      */
     public viewMan: ViewManager;
     /**
-     *
+     * A string list of the names of the views created in preInitFunc function.
      *
      * @type {string[]}
      * @memberof BaseGameLogic
      */
     public createdViews: string[] = [];
     /**
-     *
+     * Stores whether we a reinitializing the logic.
      *
      * @protected
      * @type {boolean}
@@ -75,7 +69,7 @@ export class BaseGameLogic {
      */
     protected reInit: boolean = true;
     /**
-     *
+     * Stores true when it's time for game logic to terminate.
      *
      * @protected
      * @type {boolean}
@@ -83,7 +77,7 @@ export class BaseGameLogic {
      */
     protected requestShutdown: boolean = false;
     /**
-     *
+     * This manages the various states of the game. (Main menu/multiplayer match/campaign or story/lobby/settings)
      *
      * @protected
      * @type {StateManager}
@@ -106,8 +100,9 @@ export class BaseGameLogic {
     //#region Control Method Overrides
     // OVERRIDES
     /**
-     *
-     *
+     * Accesses the members of the StateManager to manipulate the game's state with new game states.
+     * Override in game's specific game logic class.
+     * 
      * @param {string} name
      * @param {string} type
      * @memberof BaseGameLogic
@@ -117,7 +112,8 @@ export class BaseGameLogic {
     }
 
     /**
-     *
+     * Initialize the game states that need it and create their views if not already.
+     * Override in game's specific game logic class.
      *
      * @return {*}  {boolean}
      * @memberof BaseGameLogic
@@ -142,7 +138,8 @@ export class BaseGameLogic {
     }
 
     /**
-     *
+     * Update the game logic. (If server, human view types are omitted. Servers do not directly interact with human input.)
+     * Override in game's specific game logic class.
      *
      * @return {*}  {void}
      * @memberof BaseGameLogic
@@ -187,7 +184,8 @@ export class BaseGameLogic {
     }
 
     /**
-     *
+     * Shutdown game logic components that need to be, and if quitting, then all of it gets shutdown.
+     * Override in game's specific game logic class.
      *
      * @memberof BaseGameLogic
      */

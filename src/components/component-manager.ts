@@ -5,7 +5,7 @@ import { Component } from "./component";
 //#endregion
 
 /**
- *
+ * Maneges components at the system level such as for rendering.
  *
  * @export
  * @class ComponentManager
@@ -13,7 +13,7 @@ import { Component } from "./component";
 export class ComponentManager {
     //#region fields
     /**
-     *
+     * Key/Value pairs list of components.
      *
      * @private
      * @type {Map<string, Component>}
@@ -21,7 +21,7 @@ export class ComponentManager {
      */
     private components: Map<string, Component>;
     /**
-     *
+     * Points to the external game's component directory.
      *
      * @type {string}
      * @memberof ComponentManager
@@ -31,7 +31,7 @@ export class ComponentManager {
     
     //#region Properties    
     /**
-     *
+     * Returns the number of components in the component list.
      *
      * @readonly
      * @memberof ComponentManager
@@ -53,7 +53,7 @@ export class ComponentManager {
 
     //#region Accessors
     /**
-     *
+     * Get one component by name.
      *
      * @template T
      * @param {string} name
@@ -76,7 +76,7 @@ export class ComponentManager {
     }
 
     /**
-     *
+     * Get one or more components by type.
      *
      * @template T
      * @param {string} type
@@ -101,7 +101,7 @@ export class ComponentManager {
 
     //#region CRUD Ops
     /**
-     *
+     * Create a new empty component of a certain type.
      *
      * @param {string} name
      * @param {string} type
@@ -149,7 +149,7 @@ export class ComponentManager {
     }
 
     /**
-     *
+     * Add an externally created component.
      *
      * @param {Component} component
      * @return {*}  {boolean}
@@ -173,7 +173,7 @@ export class ComponentManager {
     }
 
     /**
-     *
+     * Remove a component by name.
      *
      * @param {string} name
      * @return {*}  {boolean}
@@ -196,7 +196,8 @@ export class ComponentManager {
     }
 
     /**
-     *
+     * Clear all components.
+     * Be careful with this. Make sure all components have been properly shutdown.
      *
      * @return {*}  {void}
      * @memberof ComponentManager
@@ -213,7 +214,7 @@ export class ComponentManager {
 
     //#region Control Methods
     /**
-     *
+     * Initialize all components that have not been initialized or need to be reinitialized
      *
      * @memberof ComponentManager
      */
@@ -230,7 +231,7 @@ export class ComponentManager {
     }
 
     /**
-     *
+     * Update all initialized components.
      *
      * @memberof ComponentManager
      */
@@ -250,7 +251,7 @@ export class ComponentManager {
     }
 
     /**
-     *
+     * Shutdown components marked for termination.
      *
      * @memberof ComponentManager
      */
