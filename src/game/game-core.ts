@@ -1,4 +1,4 @@
-/** @module game */
+/** @module game/game-core */
 
 //#region Imports
 import { ComponentManager } from "./../components/component-manager";

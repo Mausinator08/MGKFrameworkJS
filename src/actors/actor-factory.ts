@@ -1,4 +1,4 @@
-/** @module actors */
+/** @module actors/actor-factory */
 
 //#region Imports
 import { Component } from "../components/component";

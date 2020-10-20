@@ -1,4 +1,4 @@
-/** @module game-logic */
+/** @module game-logic/base-game-logic */
 
 //#region Imports
 import { GameCore } from "./../game/game-core";

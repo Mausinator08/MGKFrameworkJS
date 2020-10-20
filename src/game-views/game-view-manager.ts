@@ -1,4 +1,4 @@
-/** @module game-views */
+/** @module game-views/game-view-manager */
 
 //#region Imports
 import { IGameView } from "./game-view-interface";

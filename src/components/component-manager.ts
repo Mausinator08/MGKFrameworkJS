@@ -1,4 +1,4 @@
-/** @module components */
+/** @module components/component-manager */
 
 //#region Imports
 import { Component } from "./component";

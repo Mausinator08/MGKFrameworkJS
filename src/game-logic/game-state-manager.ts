@@ -1,4 +1,4 @@
-/** @module game-logic */
+/** @module game-logic/game-state-manager */
 
 //#region Imports
 import { IGameState } from "./game-state-interface";

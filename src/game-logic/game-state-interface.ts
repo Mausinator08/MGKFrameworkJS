@@ -1,4 +1,4 @@
-/** @module game-logic */
+/** @module game-logic/game-state-interface */
 
 /**
  * Used by game-state-manager to create and update the game state that derives from this interface.

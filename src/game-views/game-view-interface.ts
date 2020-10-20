@@ -1,4 +1,4 @@
-/** @module game-views */
+/** @module game-views/game-view-interface */
 
 //#region Imports
 import { BaseGameLogic } from "./../game-logic/base-game-logic"

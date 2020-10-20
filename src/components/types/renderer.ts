@@ -1,4 +1,4 @@
-/** @module components/types */
+/** @module components/types/renderer */
 
 //#region Imports
 import * as BABYLON from 'babylonjs';

@@ -1,4 +1,4 @@
-/** @module system */
+/** @module system/system-dialog */
 
 //#region Imports
 import { BrowserWindow, remote } from "electron";

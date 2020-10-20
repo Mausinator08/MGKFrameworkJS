@@ -1,4 +1,4 @@
-/** @module components */
+/** @module components/component */
 
 /**
  * The base component class. Components like the renderer inherit this class.
