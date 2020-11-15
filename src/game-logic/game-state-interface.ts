@@ -71,42 +71,42 @@ export interface IGameState {
 
     //#region Fields
     /**
-     *
+     * Stores the name of the overriding class instance
      *
      * @type {string}
      * @memberof IGameState
      */
     name: string;
     /**
-     *
+     * Stores the type of the overriding class
      *
      * @type {string}
      * @memberof IGameState
      */
     type: string;
     /**
-     *
+     * Whether this game-state is to have its VUpdate() function called automatically by game-state-manager.
      *
      * @type {boolean}
      * @memberof IGameState
      */
     autoUpdate: boolean;
     /**
-     *
+     * Whether to call VInit() for this game-state again.
      *
      * @type {boolean}
      * @memberof IGameState
      */
     reInit: boolean;
     /**
-     *
+     * Whether the VShutdown() for this game-state is to be called in game-state-manager.
      *
      * @type {boolean}
      * @memberof IGameState
      */
     requestShutdown: boolean;
     /**
-     *
+     * indicates that it is safe to clear this game-state from the game-state-manager. (VIsInitialized() needs to be false after resources are cleared before setting canClear to true.)
      *
      * @type {boolean}
      * @memberof IGameState

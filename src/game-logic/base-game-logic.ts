@@ -9,7 +9,8 @@ import { StateManager } from "./game-state-manager";
 //#endregion
 
 /**
- *
+ * Base game logic class to be overriden by the game's specific logic class.
+ * game-core class contains this class in its composition.
  *
  * @export
  * @class BaseGameLogic
@@ -107,8 +108,8 @@ export class BaseGameLogic {
      * @param {string} type
      * @memberof BaseGameLogic
      */
-    public CreateGameState(name: string, type: string): void {
-
+    public CreateGameState(name: string, type: string): string {
+        
     }
 
     /**

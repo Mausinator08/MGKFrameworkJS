@@ -6,7 +6,7 @@ import { GameCore } from "./../game/game-core";
 //#endregion
 
 /**
- *
+ * Manages and updates game-views like the human view.
  *
  * @export
  * @class ViewManager
@@ -14,7 +14,7 @@ import { GameCore } from "./../game/game-core";
 export class ViewManager {
     //#region Fields
     /**
-     *
+     * List of active views.
      *
      * @private
      * @type {Map<string, IGameView>}
@@ -22,7 +22,7 @@ export class ViewManager {
      */
     private views: Map<string, IGameView>;
     /**
-     *
+     * External game directory to search for view types when creating views.
      *
      * @type {string}
      * @memberof ViewManager
@@ -32,7 +32,7 @@ export class ViewManager {
 
     //#region Properties
     /**
-     *
+     * Number of views in ViewManager.
      *
      * @readonly
      * @memberof ViewManager
@@ -54,7 +54,7 @@ export class ViewManager {
 
     //#region Accessors
     /**
-     *
+     * Get a view by name
      *
      * @template T
      * @param {string} name
@@ -77,7 +77,7 @@ export class ViewManager {
     }
 
     /**
-     *
+     * Get views by type.
      *
      * @template T
      * @param {string} type
@@ -102,7 +102,7 @@ export class ViewManager {
 
     //#region CRUD Ops
     /**
-     *
+     * Create a new view into view manager for the specified name and type.
      *
      * @param {string} name
      * @param {string} type
@@ -150,7 +150,7 @@ export class ViewManager {
     }
 
     /**
-     *
+     * Add an externally created view.
      *
      * @param {IGameView} view
      * @return {*}  {boolean}
@@ -174,7 +174,7 @@ export class ViewManager {
     }
 
     /**
-     *
+     * Remove a view from the active views.
      *
      * @param {string} name
      * @return {*}  {boolean}
@@ -197,7 +197,7 @@ export class ViewManager {
     }
 
     /**
-     *
+     * Clear all views. (Make sure they are all shutdown.)
      *
      * @return {*}  {void}
      * @memberof ViewManager
@@ -214,7 +214,7 @@ export class ViewManager {
 
     //#region Control Methods
     /**
-     *
+     * Initialize or re-initialize applicable views.
      *
      * @memberof ViewManager
      */
@@ -231,7 +231,7 @@ export class ViewManager {
     }
 
     /**
-     *
+     * Frame update of all initialized and updatable views.
      *
      * @memberof ViewManager
      */
@@ -257,7 +257,7 @@ export class ViewManager {
     }
 
     /**
-     *
+     * Shutdown an unused view.
      *
      * @memberof ViewManager
      */

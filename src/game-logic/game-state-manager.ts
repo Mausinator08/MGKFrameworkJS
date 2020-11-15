@@ -5,7 +5,7 @@ import { IGameState } from "./game-state-interface";
 //#endregion
 
 /**
- *
+ * Handles the existance/activation/updating of IGameState objects.
  *
  * @export
  * @class StateManager
@@ -13,7 +13,7 @@ import { IGameState } from "./game-state-interface";
 export class StateManager {
     //#region Fields
     /**
-     *
+     * Existing states available to activate. States in here are uninitialized
      *
      * @private
      * @type {Map<string, IGameState>}
@@ -21,14 +21,14 @@ export class StateManager {
      */
     private states: Map<string, IGameState>;
     /**
-     *
+     * External game-state directory for the game itself.
      *
      * @type {string}
      * @memberof StateManager
      */
     public stateDir: string;
     /**
-     *
+     * Running (active) game-states.
      *
      * @type {Map<string, IGameState>}
      * @memberof StateManager
@@ -38,7 +38,7 @@ export class StateManager {
 
     //#region Properties
     /**
-     *
+     * Returns the number of existing states.
      *
      * @readonly
      * @memberof StateManager
@@ -46,11 +46,21 @@ export class StateManager {
     public get count() {
         return this.states.size;
     }
+
+    /**
+     * Returns number of active states.
+     *
+     * @readonly
+     * @memberof StateManager
+     */
+    public get runningCount() {
+        return this.activeStates.size;
+    }
     //#endregion
 
     /**
      * Creates an instance of StateManager.
-     * @param {string} statePath
+     * @param {string} statePath Sets the statDir to the passed external directory containing the vairous game-states.
      * @memberof StateManager
      */
     constructor(statePath: string) {
@@ -60,7 +70,7 @@ export class StateManager {
 
     //#region Accessors
     /**
-     *
+     * Get an existing state by its name.
      *
      * @template T
      * @param {string} name
@@ -83,7 +93,7 @@ export class StateManager {
     }
 
     /**
-     *
+     * Get existing states by their type.
      *
      * @template T
      * @param {string} type
@@ -106,7 +116,7 @@ export class StateManager {
     }
 
     /**
-     *
+     * Get an active state by name.
      *
      * @template T
      * @param {string} name
@@ -129,7 +139,7 @@ export class StateManager {
     }
 
     /**
-     *
+     * Get active states by type.
      *
      * @template T
      * @param {string} type
@@ -154,7 +164,7 @@ export class StateManager {
 
     //#region CRUD Ops
     /**
-     *
+     * Create a new game-state of specified type and insert it into the existing game-states.
      *
      * @param {string} name
      * @param {string} type
@@ -202,7 +212,7 @@ export class StateManager {
     }
 
     /**
-     *
+     * Add a games-state object created outside this StateManager.
      *
      * @param {IGameState} state
      * @return {*}  {boolean}
@@ -226,7 +236,7 @@ export class StateManager {
     }
 
     /**
-     *
+     * Remove a game state by it's name.
      *
      * @param {string} name
      * @return {*}  {boolean}
@@ -249,7 +259,7 @@ export class StateManager {
     }
 
     /**
-     *
+     * Clear all existing game-states. (Active states will still be running.)
      *
      * @return {*}  {void}
      * @memberof StateManager
@@ -264,7 +274,7 @@ export class StateManager {
     }
 
     /**
-     *
+     * Clear all active game-states. (Make sure to shutdown all active game states and that the game-state releases all its resources before clearing.)
      *
      * @memberof StateManager
      */
@@ -277,7 +287,7 @@ export class StateManager {
 
     //#region Game State Manipulation Methods
     /**
-     *
+     * Moves an existing game state to the active game-states map. (StateManager will handle initializing, updating, and shutting down.)
      *
      * @param {string} name
      * @return {*}  {boolean}
@@ -304,7 +314,9 @@ export class StateManager {
     }
 
     /**
-     *
+     * Deactivates the gamestate and removes it from the active game-states map. No more processing will occur.
+     * WARNING! Make sure the game-state is shutdown or that the instance and its state exists elsewhere before calling this method!
+     * VShutdown() is not called upon calling this method!
      *
      * @param {string} name
      * @return {*}  {boolean}
@@ -333,7 +345,7 @@ export class StateManager {
 
     //#region Control Methods
     /**
-     *
+     * First initialization of each active game-state or if it needs re-initialization, that will happen in this method.
      *
      * @memberof StateManager
      */
@@ -350,7 +362,7 @@ export class StateManager {
     }
 
     /**
-     *
+     * If this game-state is to be automatically updated, the update will occur in this method. (Must be initialized.)
      *
      * @memberof StateManager
      */
@@ -376,7 +388,7 @@ export class StateManager {
     }
 
     /**
-     *
+     * Shutdown the game-states that requested it. (Deactivate/Remove/ClearActive do not set the requestShutdown field to true, so this must be done elsewhere.)
      *
      * @memberof StateManager
      */

@@ -8,7 +8,7 @@ import { BaseGameLogic } from "../../game-logic/base-game-logic";
 //#endregion
 
 /**
- *
+ * This is the base/default human-view. (Renders to screen, plays audio, accepts input... you know... stuff humans do to/get from machines.)
  *
  * @export
  * @class HumanView
@@ -17,49 +17,49 @@ import { BaseGameLogic } from "../../game-logic/base-game-logic";
 export class HumanView implements IGameView {
     //#region Fields
     /**
-     *
+     * This is the name of the view instance.
      *
      * @type {string}
      * @memberof HumanView
      */
     public name: string = "HumanView";
     /**
-     *
+     * This is the type of the view.
      *
      * @type {string}
      * @memberof HumanView
      */
     public type: string = "HumanView";
     /**
-     *
+     * Whether game-view-manager automatically updates this instance.
      *
      * @type {boolean}
      * @memberof HumanView
      */
     public autoUpdate: boolean = false;
     /**
-     *
+     * Whether this instance needs to have its VInit() method completed in game-view-manager.
      *
      * @type {boolean}
      * @memberof HumanView
      */
     public reInit: boolean = true;
     /**
-     *
+     * Whether to call VShutdown() in game-view-manager and free resources for this view.
      *
      * @type {boolean}
      * @memberof HumanView
      */
     public requestShutdown: boolean = false;
     /**
-     *
+     * The reference to the game's logic system.
      *
      * @type {BaseGameLogic}
      * @memberof HumanView
      */
     public gameLogic: BaseGameLogic;
     /**
-     *
+     * The name of the renderer instance to use. (The renderer is a component.)
      *
      * @private
      * @type {string}
@@ -67,7 +67,7 @@ export class HumanView implements IGameView {
      */
     private rendererName: string = "";
     /**
-     *
+     * Indicates whether the view has been successfully initialized.
      *
      * @private
      * @type {boolean}
@@ -75,7 +75,7 @@ export class HumanView implements IGameView {
      */
     private isInitialized: boolean = false;
     /**
-     *
+     * The renderer's background color to clear the screen to.
      *
      * @private
      * @type {*}
@@ -89,8 +89,9 @@ export class HumanView implements IGameView {
     };
 
     /**
-     *
-     *
+     * The default scene loader. (Uses BABYLONJS by default.)
+     * To get other rendering systems to work, a decoupled rendering interface needs to be created.
+     * 
      * @private
      * @type {Function}
      * @memberof HumanView
@@ -107,7 +108,7 @@ export class HumanView implements IGameView {
     
     //#region Accessors
     /**
-     *
+     * Indicates whether the view has been successfully initialized.
      *
      * @return {*}  {boolean}
      * @memberof HumanView
@@ -117,7 +118,7 @@ export class HumanView implements IGameView {
     }
 
     /**
-     *
+     * Re-initializes the human view.
      *
      * @memberof HumanView
      */
@@ -126,7 +127,7 @@ export class HumanView implements IGameView {
     }
 
     /**
-     *
+     * Whether this instance needs to have its VInit() method completed in game-view-manager.
      *
      * @return {*}  {boolean}
      * @memberof HumanView
@@ -136,7 +137,7 @@ export class HumanView implements IGameView {
     }
 
     /**
-     *
+     * Whether we are to shutdown the human view.
      *
      * @return {*}  {boolean}
      * @memberof HumanView
@@ -146,7 +147,7 @@ export class HumanView implements IGameView {
     }
 
     /**
-     *
+     * Marks the human view for shutdown.
      *
      * @memberof HumanView
      */
@@ -155,7 +156,7 @@ export class HumanView implements IGameView {
     }
 
     /**
-     *
+     * Sets the clearColor to the color the renderer will clear to.
      *
      * @param {number} r
      * @param {number} g
@@ -171,7 +172,7 @@ export class HumanView implements IGameView {
     }
 
     /**
-     *
+     * The component to use for rendering.
      *
      * @param {string} name
      * @memberof HumanView
@@ -181,7 +182,8 @@ export class HumanView implements IGameView {
     }
 
     /**
-     *
+     * Overrides the scene loader. (Can be BABYLONJS renderer compatible or other rendering system as long as the component is loaded. Right now only BABYLONJS works.)
+     * To get other rendering systems to work, a decoupled rendering interface needs to be created.
      *
      * @param {Function} cbSceneFunc
      * @memberof HumanView
@@ -204,7 +206,7 @@ export class HumanView implements IGameView {
 
     //#region Control Method Overrides
     /**
-     *
+     * Sets up the renderer, and other human capable inputs/outputs.
      *
      * @return {*}  {boolean}
      * @memberof HumanView
@@ -220,7 +222,7 @@ export class HumanView implements IGameView {
     }
 
     /**
-     *
+     * Updates the human view renderer and other inputs/outputs.
      *
      * @return {*}  {void}
      * @memberof HumanView
@@ -251,7 +253,7 @@ export class HumanView implements IGameView {
     }
 
     /**
-     *
+     * If time to shutdown, frees resources and sets to uninitialized.
      *
      * @memberof HumanView
      */
@@ -266,7 +268,7 @@ export class HumanView implements IGameView {
 
 // Renderer component creator
 /**
- *
+ * A method to create the human view in game-view-manager.Create(...).
  *
  * @export
  * @param {string} name

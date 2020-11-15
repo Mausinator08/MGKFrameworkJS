@@ -6,7 +6,7 @@ import { GameCore } from "./../game/game-core"
 //#endregion
 
 /**
- *
+ * HTML modal dialog system. (Quit prompts, error messages, etc...)
  *
  * @export
  * @class SystemDialog
@@ -21,7 +21,7 @@ export class SystemDialog {
 
     //#region Dialog Prompts
     /**
-     *
+     * An unrecoverable error has occurred.
      *
      * @param {string} message
      * @param {Function} action
@@ -67,7 +67,7 @@ export class SystemDialog {
     }
 
     /**
-     *
+     * The user requested to quit.
      *
      * @return {*}  {HTMLElement}
      * @memberof SystemDialog
