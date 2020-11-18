@@ -109,7 +109,7 @@ export class BaseGameLogic {
      * @memberof BaseGameLogic
      */
     public CreateGameState(name: string, type: string): string {
-        
+        return this.stateManager.Create(name, type);
     }
 
     /**
