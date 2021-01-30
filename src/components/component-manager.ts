@@ -105,10 +105,11 @@ export class ComponentManager {
      *
      * @param {string} name
      * @param {string} type
+     * @param {Map<string, unknown>} args
      * @return {*}  {string}
      * @memberof ComponentManager
      */
-    public Create(name: string, type: string): string {
+    public Create(name: string, type: string, args: Map<string, unknown>): string {
         try {
             if (this.components.has(name)) {
                 console.error("ComponentManager: Create() -> Could not create component [" + name + "] of type <" + this.components.get(name).VGetType() + ">!\n" + 
@@ -137,7 +138,7 @@ export class ComponentManager {
                 }
             }
 
-            this.components.set(name, com.Create(name));
+            this.components.set(name, com.Create(name, args));
             return JSON.stringify({ comName: name, code: "created" });
         } catch (err) {
             console.error("ComponentManager: Create() -> Could not create component [" + name + "] of type <" + type + ">!\n" + 
