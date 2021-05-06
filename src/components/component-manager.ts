@@ -105,11 +105,11 @@ export class ComponentManager {
      *
      * @param {string} name
      * @param {string} type
-     * @param {Map<string, unknown>} args
+     * @param {Map<string, string>} args
      * @return {*}  {string}
      * @memberof ComponentManager
      */
-    public Create(name: string, type: string, args: Map<string, unknown>): string {
+    public Create(name: string, type: string, args: Map<string, string> = new Map<string, string>()): string {
         try {
             if (this.components.has(name)) {
                 console.error("ComponentManager: Create() -> Could not create component [" + name + "] of type <" + this.components.get(name).VGetType() + ">!\n" + 

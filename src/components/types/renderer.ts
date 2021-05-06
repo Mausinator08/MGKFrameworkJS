@@ -59,10 +59,10 @@ export class Renderer extends Component {
     /**
      * Arguments passed from exported Create() function.
      *
-     * @type {Map<string, unknown>}
+     * @type {Map<string, string>}
      * @memberof Renderer
      */
-    public args: Map<string, unknown> = null;
+    public args: Map<string, string> = null;
     //#endregion
 
     /**
@@ -70,7 +70,7 @@ export class Renderer extends Component {
      * @param {string} name
      * @memberof Renderer
      */
-    constructor(name: string, args: Map<string, unknown>) {
+    constructor(name: string, args: Map<string, string>) {
         super(name, "renderer");
         this.args = args;
     }
@@ -281,6 +281,6 @@ export class Renderer extends Component {
  * @param {string} name
  * @return {*}  {Renderer}
  */
-export function Create(name: string, args: Map<string, unknown>): Renderer {
+export function Create(name: string, args: Map<string, string> = new Map<string, string>()): Renderer {
     return new Renderer(name, args);
 }
