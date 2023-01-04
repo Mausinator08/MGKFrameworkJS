@@ -2,7 +2,8 @@
 
 //#region Imports
 import { ComponentManager } from "./../components/component-manager";
-import { BrowserWindow, remote } from "electron";
+import { BrowserWindow } from "electron";
+import * as remote from "@electron/remote";
 import { BaseGameLogic } from "./../game-logic/base-game-logic";
 import { SystemDialog } from "./../system/system-dialog";
 //#endregion
@@ -341,6 +342,7 @@ export class GameCore {
         if (this.quitting === true) {
             this.comMan.Clear();
             let _window: BrowserWindow = remote.getCurrentWindow();
+            remote.require('@electron/remote/main').enable(_window.webContents);
             _window.destroy();
             process.exit(this.exitCode);
         }

@@ -1,7 +1,8 @@
 /** @module system/system-dialog */
 
 //#region Imports
-import { BrowserWindow, remote } from "electron";
+import { BrowserWindow } from "electron";
+import * as remote from "@electron/remote";
 import { GameCore } from "./../game/game-core"
 //#endregion
 
@@ -53,7 +54,7 @@ export class SystemDialog {
             function(event: MouseEvent) {
                 action(event);
                 let _window: BrowserWindow = remote.getCurrentWindow();
-
+                remote.require('@electron/remote/main').enable(_window.webContents);
                 _window.close();
                 process.exit(exitCode);
             }
