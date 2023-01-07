@@ -20,10 +20,10 @@ export class BaseGameLogic {
     /**
      * This is called from the subclass's preinit function before anything else. (Creates the minimal views and setup.)
      *
-     * @type {Function}
+     * @type {(BaseGameLogic) => boolean}
      * @memberof BaseGameLogic
      */
-    public preInitFunc: Function;
+    public preInitFunc: (logic: BaseGameLogic) => boolean;
     /**
      * Whether logic is paused. (Rendering continues)
      *
@@ -155,8 +155,8 @@ export class BaseGameLogic {
             }
 
             // Render all humans!
-            if (this.viewMan.GetArrayByType<HumanView>("HumanView").length > 0) {
-                this.viewMan.GetArrayByType<HumanView>("HumanView").forEach(hv => {
+            if (this.viewMan.GetArrayByType<HumanView>("HumanView") && (this.viewMan.GetArrayByType<HumanView>("HumanView") as HumanView[])?.length > 0) {
+                (this.viewMan.GetArrayByType<HumanView>("HumanView") as HumanView[])?.forEach(hv => {
                     if (hv.VIsInitialized() === true) {
                         hv.VUpdate();
                     }
@@ -175,8 +175,8 @@ export class BaseGameLogic {
         }
 
         // Render all humans!
-        if (this.viewMan.GetArrayByType<HumanView>("HumanView").length > 0) {
-            this.viewMan.GetArrayByType<HumanView>("HumanView").forEach(hv => {
+        if (this.viewMan.GetArrayByType<HumanView>("HumanView") && (this.viewMan.GetArrayByType<HumanView>("HumanView") as HumanView[])?.length > 0) {
+            (this.viewMan.GetArrayByType<HumanView>("HumanView") as HumanView[])?.forEach(hv => {
                 if (hv.VIsInitialized() === true) {
                     hv.VUpdate();
                 }

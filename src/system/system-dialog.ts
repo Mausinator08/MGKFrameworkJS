@@ -25,12 +25,12 @@ export class SystemDialog {
      * An unrecoverable error has occurred.
      *
      * @param {string} message
-     * @param {Function} action
+     * @param {(event: MouseEvent) => void} action
      * @param {number} exitCode
      * @return {*}  {HTMLElement}
      * @memberof SystemDialog
      */
-    public Fatal(message: string, action: Function, exitCode: number): HTMLElement {
+    public Fatal(message: string, action: (event: MouseEvent) => void, exitCode: number): HTMLElement {
         let errorPopup: HTMLDivElement = document.createElement("div");
 
         errorPopup.setAttribute("id", "fatalError");

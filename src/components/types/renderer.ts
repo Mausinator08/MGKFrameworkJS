@@ -148,10 +148,10 @@ export class Renderer extends Component {
     /**
      * Modify what is in the scene by passing a callback function to cbModifyScene.
      *
-     * @param {Function} cbModifyScene
+     * @param {(scene: BABYLON.Scene, canvas: HTMLCanvasElement) => BABYLON.Scene} cbModifyScene
      * @memberof Renderer
      */
-    public ModifyScene(cbModifyScene: Function): void {
+    public ModifyScene(cbModifyScene: (scene: BABYLON.Scene, canvas: HTMLCanvasElement) => BABYLON.Scene): void {
         this._scene = cbModifyScene(this._scene, this._canvas);
     }
     //#endregion
@@ -160,10 +160,10 @@ export class Renderer extends Component {
     /**
      * Creates a new scene and returns it based on the passed callback function cbLoadScene.
      *
-     * @param {Function} cbLoadScene
+     * @param {(scene: BABYLON.Scene, canvas: HTMLCanvasElement) => BABYLON.Scene} cbLoadScene
      * @memberof Renderer
      */
-    public CreateScene(cbLoadScene: Function): void {
+    public CreateScene(cbLoadScene: (scene: BABYLON.Scene, canvas: HTMLCanvasElement) => BABYLON.Scene): void {
         // This creates a basic Babylon Scene object (non-mesh)
         const scene = new BABYLON.Scene(this._engine);
         this._scene = scene;

@@ -12,7 +12,7 @@ import { SystemDialog } from "./../system/system-dialog";
 /** @type {*} */
 var gameLoaded: boolean = false;
 /** @type {*} */
-var loadGame: Function;
+var loadGame: () => void;
 //#endregion
 
 /**
@@ -27,10 +27,10 @@ export class GameCore {
     /**
      * This function is assigned to from the game project in the class that inherits this class.
      *
-     * @type {Function}
+     * @type {(game: GameCore) => boolean}
      * @memberof GameCore
      */
-    public preInitFunc: Function = null;
+    public preInitFunc: (game: GameCore) => boolean;
     /**
      * The index.html rendering canvas.
      *
@@ -223,12 +223,12 @@ export class GameCore {
      * Call this if an unrecoverable error ocurrs.
      *
      * @param {string} message
-     * @param {Function} action
+     * @param {(event: MouseEvent) => void} action
      * @param {number} exitCode
      * @return {*}  {HTMLElement}
      * @memberof GameCore
      */
-    public Fatal(message: string, action: Function, exitCode: number): HTMLElement {
+    public Fatal(message: string, action: (event: MouseEvent) => void, exitCode: number): HTMLElement {
         return this.systemDialog.Fatal(message, action, exitCode);
     }
 
@@ -357,9 +357,9 @@ export class GameCore {
  * in the game system class inheriting the class GameCore, usually in the game project that uses this framework.
  *
  * @export
- * @param {Function} cbLoadGame
+ * @param {() => void} cbLoadGame
  */
-export function OnDOMContentLoaded(cbLoadGame: Function): void {
+export function OnDOMContentLoaded(cbLoadGame: () => void): void {
     loadGame = cbLoadGame;
 }
 //#endregion

@@ -5,6 +5,7 @@ import { IGameView } from "../game-view-interface";
 import { Renderer } from "../../components/types/renderer";
 import { GameCore } from "../../game/game-core";
 import { BaseGameLogic } from "../../game-logic/base-game-logic";
+import * as BABYLON from "babylonjs";
 //#endregion
 
 /**
@@ -93,10 +94,10 @@ export class HumanView implements IGameView {
      * To get other rendering systems to work, a decoupled rendering interface needs to be created.
      * 
      * @private
-     * @type {Function}
+     * @type {(BABYLON.Scene, HTMLCanvasElement) => BABYLON.Scene}
      * @memberof HumanView
      */
-    private cbSceneLoader: Function = function (scene: BABYLON.Scene, canvas: HTMLCanvasElement): BABYLON.Scene {
+    private cbSceneLoader: (scene: BABYLON.Scene, canvas: HTMLCanvasElement) => BABYLON.Scene = function (scene: BABYLON.Scene, canvas: HTMLCanvasElement): BABYLON.Scene {
         let defaultCamera: BABYLON.FreeCamera = new BABYLON.FreeCamera("camera_default", new BABYLON.Vector3(-5, 10, -5), scene);
 
         defaultCamera.setTarget(BABYLON.Vector3.Zero());
@@ -185,10 +186,10 @@ export class HumanView implements IGameView {
      * Overrides the scene loader. (Can be BABYLONJS renderer compatible or other rendering system as long as the component is loaded. Right now only BABYLONJS works.)
      * To get other rendering systems to work, a decoupled rendering interface needs to be created.
      *
-     * @param {Function} cbSceneFunc
+     * @param {(BABYLON.Scene, HTMLCanvasElement) => BABYLON.Scene} cbSceneFunc
      * @memberof HumanView
      */
-    public SetSceneLoader(cbSceneFunc: Function): void {
+    public SetSceneLoader(cbSceneFunc: (scene: BABYLON.Scene, canvas: HTMLCanvasElement) => BABYLON.Scene): void {
         this.cbSceneLoader = cbSceneFunc;
     }
     //#endregion
@@ -214,7 +215,7 @@ export class HumanView implements IGameView {
     public VInit(): boolean {
         let renderer = GameCore.game.comMan.GetByName<Renderer>(this.rendererName);
 
-        renderer.CreateScene(this.cbSceneLoader);
+        renderer?.CreateScene(this.cbSceneLoader);
 
         this.isInitialized = true;
         this.reInit = false;
@@ -240,16 +241,16 @@ export class HumanView implements IGameView {
 
         let renderer = GameCore.game.comMan.GetByName<Renderer>(this.rendererName);
 
-        if (renderer.IsInitialized === false) {
+        if (renderer?.IsInitialized === false) {
             console.warn("HumanView: VUpdate() -> The human view has detected that the renderer is not initialized!");
             return;
         }
 
         // Grab and clear the background color to start the scene rendering.
         let cc = this.clearColor;
-        renderer.BeginScene(cc.r, cc.g, cc.b, cc.a);
+        renderer?.BeginScene(cc.r, cc.g, cc.b, cc.a);
         // Call this to end the rendering scene and present it to the screen.
-        renderer.EndScene();
+        renderer?.EndScene();
     }
 
     /**

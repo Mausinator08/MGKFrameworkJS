@@ -112,7 +112,7 @@ export class ViewManager {
     public Create(name: string, type: string): string {
         try {
             if (this.views.has(name)) {
-                console.error("ViewManager: Create() -> Could not create view [" + name + "] of type <" + this.views.get(name).type + ">!\n" + 
+                console.error("ViewManager: Create() -> Could not create view [" + name + "] of type <" + (this.views.get(name) as IGameView).type + ">!\n" + 
                 "A view with that name already exists. Expected type was <" + type + ">.");
                 return JSON.stringify({ viewName: name, code: "exists" });
             }
